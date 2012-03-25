@@ -18,7 +18,7 @@ df -aTh | grep '^Filesystem\|^/dev/'
 echo ''
 
 # Nginx
-nginxv -v
+nginx -v
 echo ''
 
 # MongoDB
