@@ -17,6 +17,10 @@ echo ''
 df -aTh | grep '^Filesystem\|^/dev/'
 echo ''
 
+# Git (for latest stable Git release: http://git-scm.com/)
+git --version
+echo ''
+
 # Nginx
 nginx -v
 echo ''
