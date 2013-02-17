@@ -16,13 +16,18 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Format print: name and version
+function disp {
+  printf "[36;1m%-12s:[0m [32m%s[0m\n" "$1" "$2"
+}
+
 # Linux Standard Base and distribution specific information
 DISTRIBUTION=$(lsb_release --description)
-echo "Distribution: ${DISTRIBUTION:13}"
+disp "Distribution" "${DISTRIBUTION:13}"
 
 # System information - kernel release
 KERNEL=$(uname -r)
-echo "Kernel: ${KERNEL}"
+disp "Kernel" "${KERNEL}"
 
 # TODO
 # File system disk space
@@ -33,21 +38,21 @@ echo "Kernel: ${KERNEL}"
 command -v git > /dev/null 2>&1
 if [ $? -eq 0 ]; then
   GIT=$(git --version)
-  echo "Git: ${GIT:12}"
+  disp "Git" "${GIT:12}"
 fi
 
 # Nginx (for latest version: http://nginx.org/en/download.html)
 command -v nginx > /dev/null 2>&1
 if [ $? -eq 0 ]; then
   NGINX=$(nginx -v 2>&1)
-  echo "Nginx: ${NGINX:21}"
+  disp "Nginx" "${NGINX:21}"
 fi
 
 # MongoDB shell
 command -v mongo > /dev/null 2>&1
 if [ $? -eq 0 ]; then
   MONGO=$(mongo --version)
-  echo "MongoDB: ${MONGO:23}"
+  disp "MongoDB" "${MONGO:23}"
 fi
 
 # Node
@@ -57,14 +62,14 @@ if [ $? -eq 0 ]; then
   # FIXME
   # NODE_LATEST=$(curl -s http://nodejs.org | grep '<p class="version">' | sed 's/<[^>]*>//g' | sed 's/[[:space:]]*//g')
   # echo "Node: ${NODE} Latest: ${NODE_LATEST}"
-  echo "Node: ${NODE}"
+  disp "Node" "${NODE}"
 fi
 
 # NPM
 command -v npm > /dev/null 2>&1
 if [ $? -eq 0 ]; then
   NPM=$(npm -v)
-  echo "NPM: ${NPM}"
+  disp "NPM" "${NPM}"
 fi
 
 # Node packages
@@ -79,19 +84,27 @@ fi
 command -v mysql > /dev/null 2>&1
 if [ $? -eq 0 ]; then
   MYSQL=$(mysql --version)
-  echo "MySQL: ${MYSQL:25:6}" # FIXME: Obviously a quick substring extraction
+  disp "MySQL" "${MYSQL:25:6}" # FIXME: Obviously a quick substring extraction
 fi
 
 # PHP
 command -v php > /dev/null 2>&1
 if [ $? -eq 0 ]; then
   PHP=$(php --version 2>&1)
-  echo "PHP: ${PHP:4:6}" # FIXME: Obviously a quick substring extraction
+  disp "PHP" "${PHP:4:6}" # FIXME: Obviously a quick substring extraction
 fi
 
 # Drush
 command -v drush > /dev/null 2>&1
 if [ $? -eq 0 ]; then
   DRUSH=$(drush --version)
-  echo "Drush: ${DRUSH:14}"
+  disp "Drush" "${DRUSH:14}"
 fi
+
+# Postfix
+# command -v postfix > /dev/null 2>&1
+# if [ $? -eq 0 ]; then
+#   # FIXME: How to get current version?
+#   POSTFIX=$()
+#   echo "Postfix: ${POSTFIX}"
+# fi
