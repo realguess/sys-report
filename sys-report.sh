@@ -62,7 +62,7 @@ if [ $? -eq 0 ]; then
   # FIXME
   # NODE_LATEST=$(curl -s http://nodejs.org | grep '<p class="version">' | sed 's/<[^>]*>//g' | sed 's/[[:space:]]*//g')
   # echo "Node: ${NODE} Latest: ${NODE_LATEST}"
-  disp "Node" "${NODE}"
+  disp "Node" "${NODE:1}"
 fi
 
 # NPM
@@ -108,3 +108,10 @@ fi
 #   POSTFIX=$()
 #   echo "Postfix: ${POSTFIX}"
 # fi
+
+# CoffeeScript
+command -v coffee > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+  COFFEESCRIPT=$(coffee --version)
+  disp "CoffeeScript" "${COFFEESCRIPT:21}"
+fi
